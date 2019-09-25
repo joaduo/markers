@@ -16,6 +16,8 @@
 
 package com.google.android.apps.markers;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
@@ -823,7 +825,19 @@ public class Slate extends View {
             }
             
             if (!mDirtyRegion.isEmpty()) {
-                canvas.clipRegion(mDirtyRegion);
+                try {
+                    Method method=canvas.getClass().getMethod("clipRegion",mDirtyRegion.getClass());
+                    if(method!=null){
+                        method.invoke(canvas,mDirtyRegion);
+                    }
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+//                canvas.clipRegion(mDirtyRegion);
                 mDirtyRegion.setEmpty();
             }
             // TODO: tune this threshold based on the device density
