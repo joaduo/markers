@@ -411,10 +411,7 @@ public class TiledBitmapCanvas implements CanvasLite {
     public void step(int delta) {
         final int oldTop = mVersionInUse ? mNewVersion : mNewVersion-1;
         int newTop = oldTop + delta;       // step
-        if (newTop < mBottomVersion) {
-            if (newTop == mBottomVersion) return; // we're already at the end
-            newTop = mBottomVersion;
-        }
+        if (newTop < mBottomVersion) return; // we're already at the end
         if (mDebug) {
             Log.v(TAG, String.format("step(%d): oldTop=%d newTop=%d bot=%d", delta, 
                     oldTop, newTop, mBottomVersion));
