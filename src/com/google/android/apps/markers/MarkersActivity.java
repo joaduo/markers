@@ -152,10 +152,6 @@ public class MarkersActivity extends Activity {
         @Override
         protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
             super.onLayout(changed, left, top, right, bottom);
-            int newOrientation = (((right - left) > (bottom - top)) ? HORIZONTAL : VERTICAL);
-            if (newOrientation != getOrientation()) {
-                setOrientation(newOrientation);
-            }
         }
 
         @Override
@@ -448,18 +444,6 @@ public class MarkersActivity extends Activity {
     public void onPause() {
         super.onPause();
         saveDrawing(WIP_FILENAME, true);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        String orientation = getString(R.string.orientation);
-
-        setRequestedOrientation(
-                "landscape".equals(orientation)
-                        ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                        : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
